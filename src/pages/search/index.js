@@ -30,6 +30,10 @@ function SearchBar({ name, filter, books, error }) {
     return <Loading />;
   }
 
+  if (status === "unauthenticated") {
+    router.push("/login");
+  }
+
   return (
     <div className="p-10">
       <Search name={name} />

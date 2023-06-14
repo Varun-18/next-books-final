@@ -1,14 +1,27 @@
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import { Rating } from "react-simple-star-rating";
+import Loading from "./Loading";
 
 export default function BookDetail({ data }) {
   // console.log(data);
   const [show, setShow] = useState(false);
+  const { status } = useSession();
+  const router = useRouter();
   if (data) {
     let description = data.volumeInfo.description.slice(0, 250) + "...";
 
     if (show) {
       description = data.volumeInfo.description;
+    }
+
+    if (status === "unauthenticated") {
+      router.push("/login");
+    }
+
+    if (status === "loading") {
+      return <Loading />;
     }
     return (
       <section class="text-gray-600 body-font overflow-hidden">
