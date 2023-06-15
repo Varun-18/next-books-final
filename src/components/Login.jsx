@@ -4,13 +4,17 @@ import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import Loading from "./Loading";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const { register, handleSubmit } = useForm();
-  const { status } = useSession();
+  const { data, status } = useSession();
+  console.log(data);
 
   const router = useRouter();
   const login = async ({ email, password }) => {
+    const loading = toast.loading("Attempting to login ..!!");
+
     const data = await signIn("credentials", {
       redirect: false,
       email,
@@ -19,11 +23,19 @@ const Login = () => {
     });
 
     if (!data.error) {
-      router.push(data.url);
+      router.push("/search");
+      toast.update(loading, {
+        autoClose: 2000,
+        render: "Login successful ",
+        type: "success",
+        isLoading: false,
+      });
     } else {
-      Toast.fire({
-        icon: "error",
-        title: data.error,
+      toast.update(loading, {
+        autoClose: 2000,
+        render: data.error,
+        type: "error",
+        isLoading: false,
       });
     }
   };

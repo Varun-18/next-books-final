@@ -10,6 +10,7 @@ import _ from "lodash";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 function SearchBar({ name, filter, books, error }) {
   const [show, setShow] = useState();

@@ -1,13 +1,21 @@
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React from "react";
+import { toast } from "react-toastify";
 
 export default function Header() {
   const router = useRouter();
   const { status } = useSession();
   const logout = async () => {
+    const loading = toast.loading("Logging out");
     await signOut();
     router.push("/login");
+    toast.update(loading, {
+      autoClose: 2000,
+      isLoading: false,
+      type: "success",
+      render: "Successfully Logged out",
+    });
   };
 
   return (

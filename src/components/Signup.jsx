@@ -5,12 +5,14 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import Loading from "./Loading";
+import { toast } from "react-toastify";
 
 const Signup = () => {
   const { register, handleSubmit } = useForm();
   const { status } = useSession();
   const router = useRouter();
   const signup = async ({ username, email, password }) => {
+    const loading = toast.loading("creating your account please wait..!!");
     try {
       const { data } = await axios.post("/api/signup", {
         username,
@@ -20,13 +22,19 @@ const Signup = () => {
 
       if (data) {
         router.push("/login");
+        toast.update(loading, {
+          autoClose: 2000,
+          render: "Account created successfully please login ",
+          type: "success",
+          isLoading: false,
+        });
       }
-      
     } catch (error) {
-
-      Toast.fire({
-        icon: "error",
-        title: error.response.data,
+      toast.update(loading, {
+        autoClose: 2000,
+        type: "error",
+        render: error.response.data,
+        isLoading: false,
       });
     }
   };
