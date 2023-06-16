@@ -1,11 +1,11 @@
 import { client } from "@src/gql";
 import { GET_BOOK } from "@src/gql/query";
+import BookDetail from "@src/components/BookeDetail";
 
-const { default: BookDetail } = require("@src/components/BookeDetail");
-
-function detail({ data }) {
+function Detail({ data }) {
   return <BookDetail data={data} />;
 }
+export default Detail;
 
 export const getStaticPaths = () => {
   return {
@@ -34,5 +34,3 @@ export const getStaticProps = async (context) => {
     },
   };
 };
-
-export default detail;
