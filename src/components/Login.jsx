@@ -44,9 +44,9 @@ const Login = () => {
     router.replace("/search");
   }
 
-  if (status === "loading") {
-    return <Loading />;
-  }
+  // if (status === "loading") {
+  //   return <Loading />;
+  // }
 
   return (
     <div className="m-10">

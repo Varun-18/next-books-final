@@ -23,11 +23,15 @@ export default function BookDetail({ data }) {
     router.push("/login");
   }
 
-  if (status === "loading") {
-    return <Loading />;
-  }
+  // if (status === "loading") {
+  //   return <Loading />;
+  // }
   return (
     <section class="text-gray-600 body-font overflow-hidden">
+      <button onClick={() => router.back()} className="mx-8 py-3 text-xl">
+        {" "}
+        {"<- Back"}
+      </button>
       <div class="container p-5  mx-auto">
         <div class="lg:w-4/5 mx-auto flex flex-wrap justify-evenly ">
           <img

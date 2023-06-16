@@ -23,9 +23,9 @@ export default function Search({ name }) {
     router.push("/login");
   }
 
-  if (status === "loading") {
-    return <Loading />;
-  }
+  // if (status === "loading") {
+  //   return <Loading />;
+  // }
 
   return (
     <div className="relative w-full mb-5">
